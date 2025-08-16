@@ -4,7 +4,11 @@ const bodyParser = require("body-parser");
 const axios = require("axios");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'https://chatbotconia.netlify.app',
+    methods: ['GET', 'POST'],
+    credentials: true
+}));
 app.use(bodyParser.json());
 
 
@@ -41,6 +45,8 @@ app.use(bodyParser.json());
     }
     });
 
-    app.listen(3001, () => {
-    console.log("Servidor backend corriendo en http://localhost:3001");
+    const PORT = process.env.PORT || 3001;
+
+    app.listen(PORT, () => {
+    console.log(`Servidor backend corriendo en puerto ${PORT}`);
     });

@@ -44,7 +44,7 @@ export const ChatBotApp = ({onGoBack, chats, setChats, activeChat, setActiveChat
         setIsTyping(true);
 
         try {
-            const response = await fetch("http://localhost:3001/api/chat", {
+            const response = await fetch("https://chat-bot-ia.onrender.com", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ messages: newMessages }) // importante: enviar historial
@@ -119,6 +119,18 @@ export const ChatBotApp = ({onGoBack, chats, setChats, activeChat, setActiveChat
     useEffect(() => {
         chatsEndRef.current?.scrollIntoView({ behavior: "smooth" }); //usa el ref para hacer scroll al final del chat
     }, [messages]);
+
+    // Ping automático para no dejar que duerma el servicio de render
+    useEffect(() => {
+        const pingInterval = setInterval(() => {
+            fetch("https://chat-bot-ia.onrender.com/ping")
+                .then(() => console.log("Ping enviado"))
+                .catch((err) => console.error("Error al hacer ping:", err));
+        }, 1000 * 60 * 10);
+
+        return () => clearInterval(pingInterval);
+    }, []);
+
 
     return (
         <div className='chat-app'>

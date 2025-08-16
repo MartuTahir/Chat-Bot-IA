@@ -24,6 +24,13 @@ export const ChatBotApp = ({onGoBack, chats, setChats, activeChat, setActiveChat
         }
     }, [activeChat]);
 
+    useEffect(() => {
+    fetch("https://chat-bot-ia.onrender.com/ping")
+        .then(res => res.text())
+        .then(data => console.log("Respuesta del backend:", data))
+        .catch(err => console.error("Error al hacer ping:", err));
+}, []);
+
     const handleEmojiSelect = (emoji) => {
         setInputValue((prevInput) => prevInput + emoji.native);
         setShowEmojiPicker(false);

@@ -3,13 +3,22 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const axios = require("axios");
 
-const app = express();
-app.use(cors({
+
+const corsOptions = {
     origin: 'https://chatbotconia.netlify.app',
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST', 'OPTIONS'],
     credentials: true
-}));
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // ✅ Maneja preflight OPTIONS
+
+const app = express();
 app.use(bodyParser.json());
+
+app.get("/ping", (req, res) => {
+    res.send("pong");
+});
 
 
     app.post("/api/chat", async (req, res) => {

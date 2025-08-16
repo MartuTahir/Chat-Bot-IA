@@ -44,7 +44,7 @@ export const ChatBotApp = ({onGoBack, chats, setChats, activeChat, setActiveChat
         setIsTyping(true);
 
         try {
-            const response = await fetch("https://chat-bot-ia.onrender.com", {
+            const response = await fetch("https://chat-bot-ia.onrender.com/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ messages: newMessages }) // importante: enviar historial

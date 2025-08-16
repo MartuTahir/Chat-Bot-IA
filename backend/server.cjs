@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const axios = require("axios");
 
+const app = express();
 
 const corsOptions = {
     origin: 'https://chatbotconia.netlify.app',
@@ -13,7 +14,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); // ✅ Maneja preflight OPTIONS
 
-const app = express();
+
 app.use(bodyParser.json());
 
 app.get("/ping", (req, res) => {
